@@ -3,22 +3,25 @@
       <h1 class="text-center mb-5 wow fadeInUp">Our Doctors</h1>
 
       <div class="owl-carousel wow fadeInUp" id="doctorSlideshow">
+
+      @foreach($doctor as $d)
         <div class="item">
           <div class="card-doctor">
             <div class="header">
-              <img src="../assets/img/doctors/doctor_1.jpg" alt="">
+              <img height="300px" src="doctorimage/{{ $d->image  }}" alt="">
               <div class="meta">
                 <a href="#"><span class="mai-call"></span></a>
                 <a href="#"><span class="mai-logo-whatsapp"></span></a>
               </div>
             </div>
             <div class="body">
-              <p class="text-xl mb-0">Dr. Stein Albert</p>
-              <span class="text-sm text-grey">Cardiology</span>
+              <p class="text-xl mb-0">{{ $d->name }}</p>
+              <span class="text-sm text-grey">{{ $d->speciality }}</span>
             </div>
           </div>
         </div>
-        <div class="item">
+        @endforeach
+        <!-- <div class="item">
           <div class="card-doctor">
             <div class="header">
               <img src="../assets/img/doctors/doctor_2.jpg" alt="">
@@ -77,7 +80,7 @@
               <span class="text-sm text-grey">General Health</span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
