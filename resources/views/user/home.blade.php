@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@
 
   <link rel="stylesheet" href="../assets/css/theme.css">
 </head>
+
 <body>
 
   <!-- Back to top button -->
@@ -82,25 +84,33 @@
             <li class="nav-item">
               <a class="nav-link" href="contact.html">Contact</a>
             </li>
-			@if(Route::has('login'))
-				
-			@auth
-				<x-app-layout>
-				</x-app-layout>
-			@else
+            @if(Route::has('login'))
+
+            @auth
+            <x-app-layout>
+            </x-app-layout>
+            @else
             <li class="nav-item">
               <a class="btn btn-primary ml-lg-3" href="{{ route('login')}}">Login</a>
             </li>
-			<li class="nav-item">
+            <li class="nav-item">
               <a class="btn btn-primary ml-lg-3" href="{{ route('register') }}">Register</a>
             </li>
-			@endauth
-			@endif
+            @endauth
+            @endif
           </ul>
         </div> <!-- .navbar-collapse -->
       </div> <!-- .container -->
     </nav>
   </header>
+
+  <div class="container">
+    @if(Session::has('fail'))
+    <h3 class="alert alert-danger">{{ Session::get('fail') }}</h13>
+    @elseif(Session::has('success'))
+    <h3 class="alert alert-success">{{ Session::get('success') }}</h3>
+    @endif
+  </div>
 
   <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
     <div class="hero-section">
@@ -163,11 +173,11 @@
     </div> <!-- .bg-light -->
   </div> <!-- .bg-light -->
 
- @include('user.inc.doctor')
- 
- @include('user.inc.latest')
+  @include('user.inc.doctor')
 
-@include('user.inc.appointment')
+  @include('user.inc.latest')
+
+  @include('user.inc.appointment')
 
 
   <footer class="page-footer">
@@ -222,15 +232,16 @@
     </div>
   </footer>
 
-<script src="../assets/js/jquery-3.5.1.min.js"></script>
+  <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
-<script src="../assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="../assets/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+  <script src="../assets/vendor/owl-carousel/js/owl.carousel.min.js"></script>
 
-<script src="../assets/vendor/wow/wow.min.js"></script>
+  <script src="../assets/vendor/wow/wow.min.js"></script>
 
-<script src="../assets/js/theme.js"></script>
-  
+  <script src="../assets/js/theme.js"></script>
+
 </body>
+
 </html>
