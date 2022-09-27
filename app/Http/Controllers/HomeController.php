@@ -49,6 +49,7 @@ class HomeController extends Controller
 				'doctor' => 'required',
 				'phone' => 'required',
 				'message' => 'required',
+				'user_id' => Auth::auth()->id,
 			]
 		);
 
@@ -80,8 +81,8 @@ class HomeController extends Controller
 	public function myappointment(){
 		
 		$doctor = Doctor::all();
-
-		$user_id = Auth::user()->usertype;
+		
+		$user_id = Auth::user()->id;
 		$appoint = Appointment::where('user_id',$user_id)->get();
 		
 		if(Auth::id())

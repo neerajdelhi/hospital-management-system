@@ -45,6 +45,12 @@ Route::get('/myappointments', [HomeController::class,'myappointment'])->name('my
  
 Route::get('/cancel_appointment/{id}', [HomeController::class,'cancel_appointment'])->name('cancel_appointment');
 
+Route::get('/showappointment', [AdminController::class,'showappointment']);
+
+Route::get('/appointmentApprove/{id}', [AdminController::class,'appointmentApprove']);
+
+Route::get('/appointmentCancel/{id}', [AdminController::class,'appointmentCancel']);
+
 Route::get('/test', function(){
     return "test";
 });

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Doctor;
+use App\Models\Appointment;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -51,4 +53,44 @@ class AdminController extends Controller
         
         
     }
+
+    public function showappointment(){
+      
+        $appointment = Appointment::all();
+
+        return view('admin.showappointment', compact('appointment'));
+	}
+
+    public function appointmentApprove($id){
+
+        DB::beginTransaction();
+
+        try{
+            Appointment::find($id)->update([
+                'status' => 'approved',
+            ]);
+            DB::commit();
+            return redirect('/showappointment')->with('success','status updated.');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('/showappointment')->with('fail',$e->getMessage());
+        }
+    }
+
+    public function appointmentCancel($id){
+
+         DB::beginTransaction();
+
+        try{
+            Appointment::find($id)->update([
+                'status' => 'canceled',
+            ]);
+            DB::commit();
+            return redirect('/showappointment')->with('success','status updated');
+        }catch(\Exception $e){
+            DB::rollBack();
+            return redirect('/showappointment')->with('fail',$e->getMessage());
+        }
+    }
+
 }
