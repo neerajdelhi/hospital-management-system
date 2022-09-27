@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Doctor;
-use App\Models\appointment;
+use App\Models\Appointment;
 
 class HomeController extends Controller
 {
@@ -17,10 +17,12 @@ class HomeController extends Controller
 		if(Auth::id()){
 			
 			if(Auth::user()->usertype=='0'){
-				return view('user.home');
+				$doctor = Doctor::all();
+				return view('user.home', compact('doctor',$doctor));
 			}
 			elseif(Auth::user()->usertype=='1'){
-					return view('admin.home');
+					$doctor = Doctor::all();
+					return view('admin.home',compact('doctor',$doctor));
 			}
 			
 		}else{
@@ -73,5 +75,30 @@ class HomeController extends Controller
 		}
 
 		return redirect('/')->with('success','Appointment booked successfully.We will contact you soon.');
+	}
+
+	public function myappointment(){
+		
+		$doctor = Doctor::all();
+
+		$user_id = Auth::user()->usertype;
+		$appoint = Appointment::where('user_id',$user_id)->get();
+		
+		if(Auth::id())
+		return view('user.home', compact('doctor','appoint'));
+
+		return redirect()->back();
+	}
+
+	public function cancel_appointment($id){
+
+		$appoint = Appointment::find($id);
+
+		if($appoint->delete())
+			return redirect('myappointments')->with('success','Appointment deleted successfully');
+	}
+
+	public function test(){
+		return 'tesst';
 	}
 }

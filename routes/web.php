@@ -40,3 +40,11 @@ Route::get('/add_doctor_view', [AdminController::class,'addview']);
 Route::post('/upload_doctor', [AdminController::class,'upload']);
 
 Route::post('/appointment', [HomeController::class,'appointment']);
+
+Route::get('/myappointments', [HomeController::class,'myappointment'])->name('myappointment');
+ 
+Route::get('/cancel_appointment/{id}', [HomeController::class,'cancel_appointment'])->name('cancel_appointment');
+
+Route::get('/test', function(){
+    return "test";
+});

@@ -87,6 +87,10 @@
             @if(Route::has('login'))
 
             @auth
+
+            <li class="nav-item">
+              <a class="nav-link" style="background-color:greenyellow;color:white;" href="{{url('myappointments')}}">My Appointment</a>
+            </li>
             <x-app-layout>
             </x-app-layout>
             @else
@@ -104,12 +108,44 @@
     </nav>
   </header>
 
+  @if(Request::is('myappointments'))
+  <div class="container mt-10 mb-10">
+
+    @if(Session::has('success'))
+    <div class="alert alert-success">Appointment deleted successfully.</div>
+    @elseif(Session::has('fail'))
+    <div class="alert alert-danger">Unable to delete an Appointment.</div>
+    @endif
+
+    <table class="table">
+      <thead>
+
+        <td>Doctor Name</td>
+        <td>Date</td>
+        <td>Message</td>
+        <td>Status</td>
+        <td>Cancel Appointment</td>
+      </thead>
+      <tbody>
+        @foreach($appoint as $app)
+        <tr>
+          <td>{{$app->doctor}}</td>
+          <td>{{$app->date}}</td>
+          <td>{{$app->message}}</td>
+          <td>{{$app->status}}</td>
+          <td><a href="{{url('cancel_appointment',$app->id)}}" class="btn btn-danger" onclick="return confirm('Are You sure to delete this.')">Cancel</a></td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  @else
   <div class="container">
     @if(Session::has('fail'))
     <h3 class="alert alert-danger">{{ Session::get('fail') }}</h13>
-    @elseif(Session::has('success'))
-    <h3 class="alert alert-success">{{ Session::get('success') }}</h3>
-    @endif
+      @elseif(Session::has('success'))
+      <h3 class="alert alert-success">{{ Session::get('success') }}</h3>
+      @endif
   </div>
 
   <div class="page-hero bg-image overlay-dark" style="background-image: url(../assets/img/bg_image_1.jpg);">
@@ -179,6 +215,7 @@
 
   @include('user.inc.appointment')
 
+  @endif
 
   <footer class="page-footer">
     <div class="container">
