@@ -51,6 +51,10 @@ Route::get('/appointmentApprove/{id}', [AdminController::class,'appointmentAppro
 
 Route::get('/appointmentCancel/{id}', [AdminController::class,'appointmentCancel']);
 
+Route::get('/showdoctor', [AdminController::class,'showdoctor']);
+
+Route::get('/deletedoctor/{id}', [AdminController::class,'deletedoctor']);
+
 Route::get('/test', function(){
     return "test";
 });
