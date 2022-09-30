@@ -51,7 +51,7 @@
                             <td>{{ $doc->room }}</td>
                             <td><img height="100" width="100" src="doctorimage/{{ $doc->image }}" alt="doctorimg"></td>
                             <td><a href="{{url('deletedoctor',$doc->id)}}" class="btn btn-danger">Delete</a></td>
-                            <td><a href="" class="btn btn-primary">Update</a></td>
+                            <td><a href="{{url('edit', $doc->id) }}" class="btn btn-primary">Update</a></td>
                         </tr>
                         @endforeach
                     </tbody>

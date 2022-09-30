@@ -36,8 +36,9 @@ Route::middleware([
 
 
 Route::get('/add_doctor_view', [AdminController::class,'addview']);
+Route::post('/upload_doctor/{id?}', [AdminController::class,'upload']);
 
-Route::post('/upload_doctor', [AdminController::class,'upload']);
+Route::get('/edit/{id}', [AdminController::class,'edit']);
 
 Route::post('/appointment', [HomeController::class,'appointment']);
 
@@ -54,6 +55,8 @@ Route::get('/appointmentCancel/{id}', [AdminController::class,'appointmentCancel
 Route::get('/showdoctor', [AdminController::class,'showdoctor']);
 
 Route::get('/deletedoctor/{id}', [AdminController::class,'deletedoctor']);
+
+Route::post('/update_doctor', [AdminController::class,'update_doctor'])->name('update_doctor');
 
 Route::get('/test', function(){
     return "test";

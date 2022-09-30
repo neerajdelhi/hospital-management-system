@@ -1,7 +1,3 @@
-<x-app-layout>
-  <h1>This is admin dashboard.</h1>
-</x-app-layout>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +9,7 @@
       width: 200px;
     }
   </style>
+
 </head>
 
 <body>
@@ -33,39 +30,68 @@
         <h1 class="alert alert-danger">{{ Session::get('fail') }}</h1>
         @endif
 
+       <?php
+        if(isset($doctor->id)){
+          $url = 'update_doctor';
+          $id = $doctor->id;
+        }else{
+          $url = 'upload_doctor';
+          $id = '';
+        }
+        ?>
 
-        <form action="{{ url('upload_doctor') }}" method="post" enctype="multipart/form-data" style="padding-top:50px;">
+        <form action="{{ url($url) }}" method="post" enctype="multipart/form-data" style="padding-top:50px;">
 
           @csrf
 
+          <input type="hidden" name="id" value="{{$id}}">
           <div style="padding:15px;">
             <label for="">Doctor Name</label>
-            <input type="text" name="name" placeholder="Write the name">
+            <input type="text" name="name" placeholder="Write the name" value="{{ isset($doctor->name) ? $doctor->name : '' }}">
           </div>
 
           <div style="padding:15px;">
             <label for="">Phone</label>
-            <input type="number" name="phone" placeholder="Write the number">
+            <input type="number" name="phone" placeholder="Write the number" value="{{ isset($doctor->phone) ? $doctor->phone : '' }}">
           </div>
 
           <div style="padding:15px;">
             <label for="">Speciality</label>
             <select name="speciality" id="" style="width:210px;color:#000;">
               <option value="">--Select--</option>
-              <option value="skin">skin</option>
-              <option value="heart">heart</option>
-              <option value="eye">eye</option>
-              <option value="nose">nose</option>
+              <option value="skin" @if(isset($doctor->speciality) && $doctor->speciality=='skin')
+                {{'selected'}}
+                @endif
+                >skin
+              </option>
+              <option value="heart" @if(isset($doctor->speciality) && $doctor->speciality=='heart')
+                {{'selected'}}
+                @endif
+                >heart
+              </option>
+              <option value="eye" @if(isset($doctor->speciality) && $doctor->speciality=='eye')
+                {{'selected'}}
+                @endif
+                >eye
+              </option>
+              <option value="nose" @if(isset($doctor->speciality) && $doctor->speciality=='nose')
+                {{'selected'}}
+                @endif
+                >nose
+              </option>
             </select>
           </div>
 
           <div style="padding:15px;">
             <label for="">Room no.</label>
-            <input type="number" name="room" placeholder="Write the room number">
+            <input type="number" name="room" placeholder="Write the room number" value="{{ isset($doctor->room) ? $doctor->room : '' }}">
           </div>
 
           <div style="padding:15px;">
             <label for="">Doctor Image</label>
+            @if(isset($doctor->image))
+            <img width="200" height="200" src="/doctorimage/{{$doctor->image}}" alt="">
+            @endif
             <input type="file" name="file">
           </div>
 
