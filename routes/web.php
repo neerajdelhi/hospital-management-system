@@ -22,7 +22,8 @@ use App\Http\Controllers\AdminController;
 });
 */
 Route::get('/', [HomeController::class,'index']);
-Route::get('/home',[App\Http\Controllers\HomeController::class,'redirect']);
+Route::get('/home',[App\Http\Controllers\HomeController::class,'redirect'])
+    ->middleware('auth','verified');
 
 Route::middleware([
     'auth:sanctum',
